@@ -8,8 +8,20 @@
         "Other",
         "Programming Languages"
     ],
-    "keywords": ["vue", "vetur", "volar", "vue2"],
-    "contributes": {},
+    "keywords": [
+        "vue",
+        "vetur",
+        "volar",
+        "vue2"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "findComponentReferences",
+                "title": "Find Component References"
+            }
+        ]
+    },
     "activationEvents": [
         "onLanguage:vue"
     ],
