@@ -1,0 +1,13 @@
+// GENERATED. DON'T EDIT MANUALLY
+// md5hash: aba4b8b0b3bbb6754fd7ac0d4fc87bd1
+{
+    "type": "object",
+    "properties": {
+        "searchReferencesGlob": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "searchReferencesGlob"
+    ]
+}

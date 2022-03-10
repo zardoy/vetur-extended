@@ -1,0 +1,32 @@
+{
+    "name": "vetur-extended",
+    "displayName": "Vetur Extended",
+    "publisher": "zardoy",
+    "version": "0.0.0-dev",
+    "license": "MIT",
+    "categories": [
+        "Other",
+        "Programming Languages"
+    ],
+    "keywords": ["vue", "vetur", "volar", "vue2"],
+    "contributes": {},
+    "activationEvents": [
+        "onLanguage:vue"
+    ],
+    "scripts": {
+        "start": "vscode-framework start",
+        "lint": "eslint src/**"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.21",
+        "@types/vscode": "^1.65.0",
+        "@zardoy/tsconfig": "^1.4.0",
+        "eslint": "^8.10.0",
+        "eslint-config-zardoy": "^0.2.10",
+        "typescript": "^4.6.2"
+    },
+    "dependencies": {
+        "vscode-framework": "^0.0.18",
+        "escape-string-regexp": "^5.0.0"
+    }
+}
