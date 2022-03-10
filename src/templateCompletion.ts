@@ -11,35 +11,44 @@ export const registerTemplateCompletion = () => {
             const result: vscode.DocumentSymbol[] = await vscode.commands.executeCommand('vscode.executeDocumentSymbolProvider', document.uri)
             console.timeEnd('getInfo')
             const defaultExport = result[0]?.children.find(({ name }) => name === 'script')?.children.find(({ name }) => name === 'default')
-            // TODOr
-            const types = {
-                [vscode.CompletionItemKind.Property]: defaultExport?.children.find(({ name }) => name === 'props')?.children.map(({ name }) => name),
-                [vscode.CompletionItemKind.Variable]: defaultExport?.children.find(({ name }) => name === 'data')?.children.map(({ name }) => name),
-                [vscode.CompletionItemKind.Event]: defaultExport?.children.find(({ name }) => name === 'computed')?.children.map(({ name }) => name),
-                [vscode.CompletionItemKind.Method]: defaultExport?.children.find(({ name }) => name === 'methods')?.children.map(({ name }) => name),
-            }
-            const kindSort = [
-                vscode.CompletionItemKind.Variable,
-                vscode.CompletionItemKind.Event,
-                vscode.CompletionItemKind.Property,
-                vscode.CompletionItemKind.Method,
+            if (!defaultExport) return
+            const getAllPropsFromDefaultExport = (field: string) => defaultExport.children.find(({ name }) => name === field)?.children.map(({ name }) => name)
+            const completions = [
+                {
+                    kind: vscode.CompletionItemKind.Variable,
+                    names: getAllPropsFromDefaultExport('data'),
+                },
+                {
+                    kind: vscode.CompletionItemKind.Event,
+                    names: getAllPropsFromDefaultExport('computed'),
+                },
+                {
+                    kind: vscode.CompletionItemKind.Property,
+                    names: getAllPropsFromDefaultExport('props'),
+                },
+                {
+                    kind: vscode.CompletionItemKind.Method,
+                    names: getAllPropsFromDefaultExport('methods'),
+                },
             ]
             // TODO align with webstorm
             const typeInclude = {
                 'v-model': ['data'],
                 // eslint-disable-next-line @typescript-eslint/naming-convention
-                '@': ['methods']
+                '@': ['methods'],
             }
-            return Object.entries(types)
-                .flatMap(([kind, names]) => names!.map((name, i) => {
-                    kind = +kind as never;
-                    if (!name.startsWith(match[2]!)) return undefined!
-                    const completion = new vscode.CompletionItem(name, kind);
-                    // TODO recheck src
-                    // force sorting as in source, this workaround is needed as vscode just uses .sort()
-                    completion.sortText = `${kindSort.indexOf(kind) + 1}${i.toString().padStart(3, '0')}`
-                    return completion;
-                }))
+            return completions
+                .flatMap(({ kind, names }, kindIndex) =>
+                    names!.map((name, i) => {
+                        kind = +kind as never
+                        if (!name.startsWith(match[2]!)) return undefined!
+                        const completion = new vscode.CompletionItem(name, kind)
+                        // TODO recheck src
+                        // force sorting as in source, this workaround is needed as vscode just uses .sort()
+                        completion.sortText = `!${kindIndex + 1}${i.toString().padStart(3, '0')}`
+                        return completion
+                    }),
+                )
                 .filter(Boolean)
         },
     })
