@@ -1,16 +1,17 @@
 import * as vscode from 'vscode'
+import { getDefaultExportOutline, interpolationPropRegex } from './util'
 
 export const registerTemplateCompletion = () => {
     vscode.languages.registerCompletionItemProvider('vue', {
         async provideCompletionItems(document, position) {
             // TODO! caching
             const lineText = document.lineAt(position).text
-            const match = /(?::|@|v-)(\w+)="([^"]*)$/.exec(lineText.slice(0, position.character))
+            const match = interpolationPropRegex.exec(lineText.slice(0, position.character))
             if (!match) return
+            const existingContent = match[2]!
             console.time('getInfo')
-            const result: vscode.DocumentSymbol[] = await vscode.commands.executeCommand('vscode.executeDocumentSymbolProvider', document.uri)
+            const defaultExport = await getDefaultExportOutline(document.uri)
             console.timeEnd('getInfo')
-            const defaultExport = result[0]?.children.find(({ name }) => name === 'script')?.children.find(({ name }) => name === 'default')
             if (!defaultExport) return
             const getAllPropsFromDefaultExport = (field: string) => defaultExport.children.find(({ name }) => name === field)?.children.map(({ name }) => name)
             const completions = [
@@ -29,6 +30,10 @@ export const registerTemplateCompletion = () => {
                 {
                     kind: vscode.CompletionItemKind.Method,
                     names: getAllPropsFromDefaultExport('methods'),
+                    // completions: defaultExport.children.find(({ name }) => name === 'methods')?.children.map(({ name, range }) => {
+                    //     const hoverInfo = await vscode.commands.executeCommand('vscode.executeHoverProvider', )
+                    //     return range;
+                    // }),
                 },
             ]
             // TODO align with webstorm
@@ -41,7 +46,7 @@ export const registerTemplateCompletion = () => {
                 .flatMap(({ kind, names }, kindIndex) =>
                     names!.map((name, i) => {
                         kind = +kind as never
-                        if (!name.startsWith(match[2]!)) return undefined!
+                        if (!name.startsWith(existingContent)) return undefined!
                         const completion = new vscode.CompletionItem(name, kind)
                         // TODO recheck src
                         // force sorting as in source, this workaround is needed as vscode just uses .sort()
