@@ -1,10 +1,12 @@
 import * as vscode from 'vscode'
+import { getExtensionSetting } from 'vscode-framework'
 import { getDefaultExportOutline, interpolationPropRegex } from './util'
 
 export const registerTemplateCompletion = () => {
     vscode.languages.registerCompletionItemProvider('vue', {
         async provideCompletionItems(document, position) {
-            // TODO! caching
+            const showCompletions = getExtensionSetting('showCompletions')
+            if (showCompletions === 'disabled') return
             const lineText = document.lineAt(position).text
             const match = interpolationPropRegex.exec(lineText.slice(0, position.character))
             if (!match) return
@@ -46,7 +48,7 @@ export const registerTemplateCompletion = () => {
                 .flatMap(({ kind, names }, kindIndex) =>
                     names!.map((name, i) => {
                         kind = +kind as never
-                        if (!name.startsWith(existingContent)) return undefined!
+                        if (showCompletions === 'onlyStart' && !name.startsWith(existingContent)) return undefined!
                         const completion = new vscode.CompletionItem(name, kind)
                         // TODO recheck src
                         // force sorting as in source, this workaround is needed as vscode just uses .sort()
