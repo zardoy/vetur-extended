@@ -4,7 +4,7 @@ import { interpolationPropRegex, getDefaultExportOutline } from './util'
 export const registerHover = () => {
     // TODO investigate empty hovers
     vscode.languages.registerHoverProvider('vue', {
-        async provideHover(document, position, token) {
+        async provideHover(document, position) {
             const lineText = document.lineAt(position).text
             const match = interpolationPropRegex.exec(lineText.slice(0, position.character))
             if (!match) return

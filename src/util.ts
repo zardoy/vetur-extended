@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 
-export const interpolationPropRegex = /(?::|@|v-)(\w+)="([^"]*)$/
+export const interpolationPropRegex = /(?::|@|v-)(\w|-)+="([^"]*)$/
 
 // TODO! caching
 export const getDefaultExportOutline = async (documentUri: vscode.Uri) => {
