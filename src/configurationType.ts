@@ -4,5 +4,5 @@ export type Configuration = {
      * Where to show completions in template attributes
      * @default "everywhere"
      * */
-    showCompletions: 'disabled' | 'onlyStart' | 'everywhere'
+    showCompletions: 'disabled' | 'onlyStart' | 'everywhere'   
 }
