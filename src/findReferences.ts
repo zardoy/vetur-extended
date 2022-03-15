@@ -33,7 +33,7 @@ export const registerFindReferences = () => {
                             }
 
                             if (line === '</template>') break
-                            if (inTemplate) {
+                            if (!inTemplate) continue;
                                 // TODO! use iterator
                                 const matches = line.matchAll(new RegExp(`<${escapeStringRegexp(componentName)}`, 'g'))
                                 for (const match of matches) {
@@ -41,7 +41,7 @@ export const registerFindReferences = () => {
                                     const startPos = new vscode.Position(lineIndex, match.index + 1)
                                     ranges.push(new vscode.Range(startPos, startPos.translate(0, componentName.length)))
                                 }
-                            }
+
                         }
 
                         return {
