@@ -21,6 +21,8 @@ export const registerGenerateJsconfigAliases = () => {
         await modifyTsConfigJsonFile(
             jsConfigPath,
             jsconfig => {
+                //@ts-expect-error TODO
+                if (!jsconfig.include) jsconfig.include = 'src/*'
                 if (!jsconfig.compilerOptions) jsconfig.compilerOptions = {}
                 if (!jsconfig.compilerOptions.paths) jsconfig.compilerOptions.paths = {}
                 if (!jsconfig.compilerOptions.baseUrl) jsconfig.compilerOptions.baseUrl = './'
