@@ -2,6 +2,7 @@ import { registerGenerateJsconfigAliases } from './commands/generateJsconfigAlia
 import { registerFindReferences } from './findReferences'
 import { registerGotoDefinition } from './gotoDefinition'
 import { registerHover } from './hover'
+// import { registerLinksProvider } from './links'
 import { registerTemplateCompletion } from './templateCompletion'
 
 export const activate = () => {
@@ -10,4 +11,5 @@ export const activate = () => {
     registerGotoDefinition()
     registerHover()
     registerGenerateJsconfigAliases()
+    // registerLinksProvider()
 }
