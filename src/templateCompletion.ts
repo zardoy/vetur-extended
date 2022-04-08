@@ -15,6 +15,7 @@ export const registerTemplateCompletion = () => {
             const defaultExport = await getDefaultExportOutline(document.uri)
             console.timeEnd('getInfo')
             if (!defaultExport) return
+            console.log('compl', defaultExport)
             const getAllPropsFromDefaultExport = (field: string) => defaultExport.children.find(({ name }) => name === field)?.children.map(({ name }) => name)
             const completions = [
                 {
@@ -38,6 +39,7 @@ export const registerTemplateCompletion = () => {
                     // }),
                 },
             ]
+            console.log('completions', completions)
             // TODO align with webstorm
             const typeInclude = {
                 'v-model': ['data'],
@@ -46,7 +48,8 @@ export const registerTemplateCompletion = () => {
             }
             return completions
                 .flatMap(({ kind, names }, kindIndex) =>
-                    names!.map((name, i) => {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                    names?.map((name, i) => {
                         kind = +kind as never
                         if (showCompletions === 'onlyStart' && !name.startsWith(existingContent)) return undefined!
                         const completion = new vscode.CompletionItem(name, kind)
@@ -54,7 +57,7 @@ export const registerTemplateCompletion = () => {
                         // force sorting as in source, this workaround is needed as vscode just uses .sort()
                         completion.sortText = `!${kindIndex + 1}${i.toString().padStart(3, '0')}`
                         return completion
-                    }),
+                    })!,
                 )
                 .filter(Boolean)
         },

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 
-export const interpolationPropRegex = /(?::|@|v-)(\w|-)+="([^"]*)$/
+export const interpolationPropRegex = /(?::|@|v-)([-\d\w])+="([^"]*)$/
 
 // TODO! caching
 let veturMode: boolean | undefined
