@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
-import * as vscode from "vscode";
-import { getExtensionSetting } from "vscode-framework";
-import { Utils } from "vscode-uri";
+import * as vscode from 'vscode';
+import { getExtensionSetting } from 'vscode-framework';
+import { Utils } from 'vscode-uri';
 
 const fileExists = async (uri: vscode.Uri): Promise<boolean> => {
     try {
@@ -13,16 +13,18 @@ const fileExists = async (uri: vscode.Uri): Promise<boolean> => {
 };
 
 export const registerComponentsLinks = () => {
-    vscode.languages.registerDocumentLinkProvider("vue", {
+    vscode.languages.registerDocumentLinkProvider('vue', {
         async provideDocumentLinks(document, token) {
-            if (!getExtensionSetting("enableLinks")) return;
+            if (!getExtensionSetting('enableLinks')) return;
 
             const text = document.getText();
-            const matches = [...text.matchAll(/( from )('.+')/g)];
+            const matches: RegExpMatchArray[] = [
+                ...text.matchAll(/( from )('.+')/g),
+            ];
             const links: vscode.DocumentLink[] = [];
             for (const match of matches) {
                 if (
-                    !["./", "../"].some((predicate) =>
+                    !['./', '../'].some((predicate) =>
                         match[2]!.slice(1).startsWith(predicate)
                     )
                 )
@@ -38,7 +40,7 @@ export const registerComponentsLinks = () => {
                     Utils.dirname(document.uri),
                     path
                 );
-                const variantsToCheck = ["/index.vue", "", ".vue"].map((ext) =>
+                const variantsToCheck = ['/index.vue', '', '.vue'].map((ext) =>
                     uri.with({
                         path: `${uri.path}${ext}`,
                     })
@@ -51,7 +53,7 @@ export const registerComponentsLinks = () => {
                 const variantIndex = existingVariants.findIndex(
                     (existingVariant) => existingVariant
                 );
-                if (variantIndex === -1 ) continue;
+                if (variantIndex === -1) continue;
 
                 links.push({
                     range: new vscode.Range(
