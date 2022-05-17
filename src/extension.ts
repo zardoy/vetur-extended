@@ -1,4 +1,5 @@
 import { registerGenerateJsconfigAliases } from './commands/generateJsconfigAliases'
+import { registerComponentsLinks } from './componentsLinks'
 import { registerFindReferences } from './findReferences'
 import { registerGotoDefinition } from './gotoDefinition'
 import { registerHover } from './hover'
@@ -11,5 +12,6 @@ export const activate = () => {
     registerGotoDefinition()
     registerHover()
     registerGenerateJsconfigAliases()
+    registerComponentsLinks()
     // registerLinksProvider()
 }
