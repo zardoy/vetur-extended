@@ -1,5 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import * as vscode from "vscode";
+import { getExtensionSetting } from "vscode-framework";
 import { Utils } from "vscode-uri";
 
 const fileExists = async (uri: vscode.Uri): Promise<boolean> => {
@@ -14,6 +15,8 @@ const fileExists = async (uri: vscode.Uri): Promise<boolean> => {
 export const registerComponentsLinks = () => {
     vscode.languages.registerDocumentLinkProvider("vue", {
         async provideDocumentLinks(document, token) {
+            if (!getExtensionSetting("enableLinks")) return;
+
             const text = document.getText();
             const matches = [...text.matchAll(/( from )('.+')/g)];
             const links: vscode.DocumentLink[] = [];
