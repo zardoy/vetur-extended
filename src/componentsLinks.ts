@@ -7,8 +7,13 @@ import { Utils } from 'vscode-uri'
 export const importsCache = new Map<string, vscode.Uri>()
 
 export const registerComponentsLinks = () => {
+    vscode.workspace.onDidChangeTextDocument(() => {
+        importsCache.clear()
+    })
+
     vscode.languages.registerDocumentLinkProvider('vue', {
-        async provideDocumentLinks(document, token) {
+        async provideDocumentLinks(document) {
+            const activeEditor = vscode.window.activeTextEditor!
             if (!getExtensionSetting('enableLinks')) return
 
             const text = document.getText()
@@ -34,7 +39,8 @@ export const registerComponentsLinks = () => {
                 )
                 if (targetUri === undefined) continue
                 const importingIdentifier = match[2]!
-                if (/(\w|\d)+/.test(importingIdentifier)) importsCache.set(importingIdentifier, targetUri)
+                // links can be updated in random order if several editors are opened
+                if (/(\w|\d)+/.test(importingIdentifier) && document.uri === activeEditor.document.uri) importsCache.set(importingIdentifier, targetUri)
 
                 links.push({
                     range: new vscode.Range(document.positionAt(startIdx), document.positionAt(endIdx)),
