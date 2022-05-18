@@ -53,5 +53,14 @@
         "vscode-framework": "^0.0.18",
         "vscode-html-languageservice": "^4.2.2",
         "vscode-uri": "^3.0.3"
+    },
+    "prettier": {
+        "semi": false,
+        "singleQuote": true,
+        "proseWrap": "never",
+        "tabWidth": 4,
+        "trailingComma": "all",
+        "arrowParens": "avoid",
+        "printWidth": 150
     }
 }
