@@ -2,6 +2,7 @@ import * as vscode from 'vscode'
 import { getDefaultExportOutline, interpolationPropRegex } from './util'
 
 export const registerGotoDefinition = () => {
+    // attribute definition
     vscode.languages.registerDefinitionProvider('vue', {
         async provideDefinition(document, position, token) {
             const lineText = document.lineAt(position).text
@@ -21,6 +22,12 @@ export const registerGotoDefinition = () => {
                     .filter(Boolean)
                     .map(({ range }) => ({ targetRange: range, targetUri: document.uri }))
             )
+        },
+    })
+    // component definition
+    vscode.languages.registerDefinitionProvider('vue', {
+        provideDefinition(document, position, token) {
+            return []
         },
     })
 }
