@@ -1,16 +1,8 @@
 /* eslint-disable no-await-in-loop */
 import * as vscode from 'vscode'
 import { getExtensionSetting } from 'vscode-framework'
+import { firstExists } from '@zardoy/vscode-utils/build/fs'
 import { Utils } from 'vscode-uri'
-
-const fileExists = async (uri: vscode.Uri): Promise<boolean> => {
-    try {
-        await vscode.workspace.fs.stat(uri)
-        return true
-    } catch {
-        return false
-    }
-}
 
 export const registerComponentsLinks = () => {
     vscode.languages.registerDocumentLinkProvider('vue', {
@@ -29,19 +21,20 @@ export const registerComponentsLinks = () => {
                 const questionmarkIndex = /\?/.exec(path)?.index
                 if (questionmarkIndex) path = path.slice(0, questionmarkIndex)
 
-                const uri = vscode.Uri.joinPath(Utils.dirname(document.uri), path)
-                const variantsToCheck = ['/index.vue', '', '.vue'].map(ext =>
-                    uri.with({
-                        path: `${uri.path}${ext}`,
+                const importUri = vscode.Uri.joinPath(Utils.dirname(document.uri), path)
+                const targetUri = await firstExists(
+                    ['/index.vue', '', '.vue'].map(ext => {
+                        const uri = importUri.with({
+                            path: `${importUri.path}${ext}`,
+                        })
+                        return { uri, name: uri }
                     }),
                 )
-                const existingVariants = await Promise.all(variantsToCheck.map(async variant => (async () => fileExists(variant))()))
-                const variantIndex = existingVariants.findIndex(existingVariant => existingVariant)
-                if (variantIndex === -1) continue
+                if (targetUri === undefined) continue
 
                 links.push({
                     range: new vscode.Range(document.positionAt(startIdx), document.positionAt(endIdx)),
-                    target: variantsToCheck[variantIndex]!,
+                    target: targetUri,
                 })
             }
 
