@@ -10,7 +10,7 @@ export const registerComponentsLinks = () => {
             if (!getExtensionSetting('enableLinks')) return
 
             const text = document.getText()
-            const matches: RegExpMatchArray[] = [...text.matchAll(/( from )(['"].+['"])/g)]
+            const matches: RegExpMatchArray[] = [...text.matchAll(/(\s*import .+ from )(['"].+['"])/g)]
             const links: vscode.DocumentLink[] = []
             for (const match of matches) {
                 if (!['./', '../'].some(predicate => match[2]!.slice(1).startsWith(predicate))) continue
