@@ -1,5 +1,5 @@
 // GENERATED. DON'T EDIT MANUALLY
-// md5hash: 6252095098d0ae0f6bd5871fafeae514
+// md5hash: 2c9bf0249d921f9c9c75ece230793493
 {
     "type": "object",
     "properties": {
@@ -15,9 +15,15 @@
                 "onlyStart"
             ],
             "type": "string"
+        },
+        "enableLinks": {
+            "description": "Whether to enable links to files in supported import statements",
+            "default": true,
+            "type": "boolean"
         }
     },
     "required": [
+        "enableLinks",
         "searchReferencesGlob",
         "showCompletions"
     ]
