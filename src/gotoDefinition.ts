@@ -1,4 +1,6 @@
 import * as vscode from 'vscode'
+import { pascalCase, camelCase } from 'change-case'
+import { importsCache } from './componentsLinks'
 import { getDefaultExportOutline, interpolationPropRegex } from './util'
 
 export const registerGotoDefinition = () => {
@@ -27,7 +29,16 @@ export const registerGotoDefinition = () => {
     // component definition
     vscode.languages.registerDefinitionProvider('vue', {
         provideDefinition(document, position, token) {
-            return []
+            const componentRange = document.getWordRangeAtPosition(position, /<\/?([-\d\w])+/) // (?=(\s|\/?>))
+            if (!componentRange) return
+            const rangeText = document.getText(componentRange)
+            const componentName = /<\/?(([-\d\w])+)/.exec(rangeText)![1]!
+            const uri = importsCache.get(componentName) ?? importsCache.get(pascalCase(componentName)) ?? importsCache.get(camelCase(componentName))
+            if (!uri) return
+            const startPos = new vscode.Position(0, 0)
+            const range = new vscode.Range(startPos, startPos.with(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY))
+            // const previewRange = new vscode.Range(startPos.with(1), startPos.with(6));
+            return [{ range, targetRange: range, uri, targetUri: uri }]
         },
     })
 }
