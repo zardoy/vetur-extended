@@ -1,5 +1,5 @@
 // GENERATED. DON'T EDIT MANUALLY
-// md5hash: 724c23be0bf8d51436383cb0b3600e9a
+// md5hash: cc577b7e7a50691fa19068ede6893485
 {
     "type": "object",
     "properties": {
@@ -20,10 +20,16 @@
             "description": "Whether to enable links to files in supported import statements",
             "default": true,
             "type": "boolean"
+        },
+        "enableWebpackAliases": {
+            "description": "(component definitions) Try to resolve imports using aliases from root webpack config",
+            "default": true,
+            "type": "boolean"
         }
     },
     "required": [
         "enableLinks",
+        "enableWebpackAliases",
         "searchReferencesGlob",
         "showCompletions"
     ]

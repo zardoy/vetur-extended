@@ -10,4 +10,9 @@ export type Configuration = {
      * @default true
      * */
     enableLinks: boolean
+    /**
+     * (component definitions) Try to resolve imports using aliases from root webpack config
+     * @default true
+     * */
+    enableWebpackAliases: boolean
 }

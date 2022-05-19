@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import { pascalCase, camelCase } from 'change-case'
-import { importsCache } from './componentsLinks'
+import { documentsImportsCache } from './componentsLinks'
 import { getDefaultExportOutline, interpolationPropRegex } from './util'
 
 export const registerGotoDefinition = () => {
@@ -33,6 +33,13 @@ export const registerGotoDefinition = () => {
             if (!componentRange) return
             const rangeText = document.getText(componentRange)
             const componentName = /<\/?(([-\d\w])+)/.exec(rangeText)![1]!
+            const importsCache = documentsImportsCache.get(document.uri.toString())
+            if (!importsCache) {
+                console.warn('no importsCache!')
+                return
+            }
+
+            // console.log('lookup', componentName, importsCache)
             const uri = importsCache.get(componentName) ?? importsCache.get(pascalCase(componentName)) ?? importsCache.get(camelCase(componentName))
             if (!uri) return
             const startPos = new vscode.Position(0, 0)
