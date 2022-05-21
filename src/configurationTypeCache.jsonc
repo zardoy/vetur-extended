@@ -1,5 +1,5 @@
 // GENERATED. DON'T EDIT MANUALLY
-// md5hash: cc577b7e7a50691fa19068ede6893485
+// md5hash: f49a87471d308085e9f243f85f37cd22
 {
     "type": "object",
     "properties": {
@@ -25,9 +25,15 @@
             "description": "(component definitions) Try to resolve imports using aliases from root webpack config",
             "default": true,
             "type": "boolean"
+        },
+        "enableFindReferencesButton": {
+            "description": "Whether to enable showing component references button",
+            "default": true,
+            "type": "boolean"
         }
     },
     "required": [
+        "enableFindReferencesButton",
         "enableLinks",
         "enableWebpackAliases",
         "searchReferencesGlob",

@@ -18,13 +18,23 @@
         "commands": [
             {
                 "command": "findComponentReferences",
-                "title": "Find Component References"
+                "title": "Find Component References",
+                "icon": "$(references)"
             },
             {
                 "command": "generateJsconfigAliases",
                 "title": "Generate Jsconfig Aliases"
             }
-        ]
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "editorLangId == 'vue' && veturExtended.findComponentReferences",
+                    "group": "navigation",
+                    "command": "findComponentReferences"
+                }
+            ]
+        }
     },
     "activationEvents": [
         "onLanguage:vue"
