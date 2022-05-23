@@ -16,7 +16,7 @@ export type Configuration = {
      * */
     enableWebpackAliases: boolean
     /**
-     * Whether to enable showing component references button
+     * Whether to enable component references button
      * @default true
      */
     enableFindReferencesButton: boolean
