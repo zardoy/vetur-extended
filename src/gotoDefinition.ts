@@ -1,12 +1,8 @@
 import * as vscode from 'vscode'
 import { pascalCase, camelCase } from 'change-case'
+import { getExtensionCommandId, getExtensionSetting, getExtensionSettingId } from 'vscode-framework'
 import { documentsImportsCache } from './componentsLinks'
 import { getDefaultExportOutline, interpolationPropRegex } from './util'
-
-const setFindReferenceButtonVisibility = () => {
-    const isMenuButtonEnabled = vscode.workspace.getConfiguration('veturExtended').get('enableFindReferencesButton')
-    void vscode.commands.executeCommand('setContext', 'veturExtended.findComponentReferences', isMenuButtonEnabled)
-}
 
 export const registerGotoDefinition = () => {
     // attribute definition
@@ -53,9 +49,14 @@ export const registerGotoDefinition = () => {
             return [{ range, targetRange: range, uri, targetUri: uri }]
         },
     })
-    setFindReferenceButtonVisibility()
+    const setReferenceButtonVisibility = () => {
+        const isMenuButtonEnabled = getExtensionSetting('enableFindReferencesButton')
+        void vscode.commands.executeCommand('setContext', getExtensionCommandId('findComponentReferences'), isMenuButtonEnabled)
+    }
+
+    setReferenceButtonVisibility()
 
     vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
-        if (affectsConfiguration('veturExtended.enableFindReferencesButton')) setFindReferenceButtonVisibility()
+        if (affectsConfiguration(getExtensionSettingId('enableFindReferencesButton'))) setReferenceButtonVisibility()
     })
 }

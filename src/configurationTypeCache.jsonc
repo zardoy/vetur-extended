@@ -1,5 +1,5 @@
 // GENERATED. DON'T EDIT MANUALLY
-// md5hash: f49a87471d308085e9f243f85f37cd22
+// md5hash: ac11f28b95e9e4355ca10a40f35a6142
 {
     "type": "object",
     "properties": {
@@ -27,7 +27,7 @@
             "type": "boolean"
         },
         "enableFindReferencesButton": {
-            "description": "Whether to enable showing component references button",
+            "description": "Whether to enable component references button",
             "default": true,
             "type": "boolean"
         }
