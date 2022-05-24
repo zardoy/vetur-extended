@@ -24,6 +24,10 @@
             {
                 "command": "generateJsconfigAliases",
                 "title": "Generate Jsconfig Aliases"
+            },
+            {
+                "command": "printWebpackJsconfigAliases",
+                "title": "Print Webpack Jsconfig Aliases"
             }
         ],
         "menus": {
@@ -53,7 +57,7 @@
     },
     "dependencies": {
         "@zardoy/utils": "^0.0.4",
-        "@zardoy/vscode-utils": "^0.0.10",
+        "@zardoy/vscode-utils": "^0.0.14",
         "change-case": "^4.1.2",
         "escape-string-regexp": "^5.0.0",
         "modify-json-file": "^1.2.2",

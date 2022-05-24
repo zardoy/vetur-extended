@@ -6,5 +6,5 @@ Note that I'm currently trying to create more convenient and reliable extension 
 
 It was mainly created for Vue@2, where just `export default` is used within components.
 
-Vetur is abondoned. It just doesn't work in some components.
+Vetur is abandoned. It just doesn't work in some components.
 Volar doesn't work without `defineComponent` and some switches that must be defined in js/tsconfig locally.

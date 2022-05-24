@@ -1,4 +1,5 @@
 import { registerGenerateJsconfigAliases } from './commands/generateJsconfigAliases'
+import { registerPrintWebpackJsconfigAliases } from './commands/printWebpackJsconfigAliases'
 import { registerComponentsLinks } from './componentsLinks'
 import { registerFindReferences } from './findReferences'
 import { registerGotoDefinition } from './gotoDefinition'
@@ -13,5 +14,6 @@ export const activate = () => {
     registerHover()
     registerGenerateJsconfigAliases()
     registerComponentsLinks()
+    registerPrintWebpackJsconfigAliases()
     // registerLinksProvider()
 }
