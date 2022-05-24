@@ -77,4 +77,6 @@ export const registerFindReferences = () => {
     vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
         if (affectsConfiguration(getExtensionSettingId('enableFindReferencesButton'))) setReferenceButtonVisibility()
     })
+
+    setReferenceButtonVisibility()
 }
