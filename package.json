@@ -29,7 +29,7 @@
         "menus": {
             "editor/title": [
                 {
-                    "when": "editorLangId == 'vue' && veturExtended.findComponentReferences",
+                    "when": "editorLangId == 'vue' && veturExtended.enableFindReferencesButton",
                     "group": "navigation",
                     "command": "findComponentReferences"
                 }

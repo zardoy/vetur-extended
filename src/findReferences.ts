@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import escapeStringRegexp from 'escape-string-regexp'
-import { getExtensionSetting, registerExtensionCommand } from 'vscode-framework'
+import { getExtensionSetting, getExtensionSettingId, registerExtensionCommand } from 'vscode-framework'
 
 export const registerFindReferences = () => {
     vscode.languages.registerReferenceProvider('vue', {
@@ -33,15 +33,14 @@ export const registerFindReferences = () => {
                             }
 
                             if (line === '</template>') break
-                            if (!inTemplate) continue;
-                                // TODO! use iterator
-                                const matches = line.matchAll(new RegExp(`<${escapeStringRegexp(componentName)}`, 'g'))
-                                for (const match of matches) {
-                                    if (match.index === undefined) continue
-                                    const startPos = new vscode.Position(lineIndex, match.index + 1)
-                                    ranges.push(new vscode.Range(startPos, startPos.translate(0, componentName.length)))
-                                }
-
+                            if (!inTemplate) continue
+                            // TODO! use iterator
+                            const matches = line.matchAll(new RegExp(`<${escapeStringRegexp(componentName)}`, 'g'))
+                            for (const match of matches) {
+                                if (match.index === undefined) continue
+                                const startPos = new vscode.Position(lineIndex, match.index + 1)
+                                ranges.push(new vscode.Range(startPos, startPos.translate(0, componentName.length)))
+                            }
                         }
 
                         return {
@@ -60,7 +59,10 @@ export const registerFindReferences = () => {
     registerExtensionCommand('findComponentReferences', async () => {
         const activeEditor = vscode.window.activeTextEditor
         if (activeEditor === undefined || activeEditor.viewColumn === undefined) return
-        const result: vscode.DocumentSymbol[] = await vscode.commands.executeCommand('vscode.executeDocumentSymbolProvider', activeEditor.document.uri)
+        const result: vscode.DocumentSymbol[] = await vscode.commands.executeCommand(
+            'vscode.executeDocumentSymbolProvider',
+            activeEditor.document.uri,
+        )
         const range = result[0]?.children
             .find(({ name }) => name === 'script')
             ?.children.find(({ name }) => name === 'default')
@@ -68,5 +70,13 @@ export const registerFindReferences = () => {
         if (!range) return
         activeEditor.selections = [new vscode.Selection(range.end, range.end)]
         await vscode.commands.executeCommand('editor.action.referenceSearch.trigger')
+    })
+    const setReferenceButtonVisibility = () => {
+        const isMenuButtonEnabled = getExtensionSetting('enableFindReferencesButton')
+        void vscode.commands.executeCommand('setContext', 'veturExtended.enableFindReferencesButton', isMenuButtonEnabled)
+    }
+
+    vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
+        if (affectsConfiguration(getExtensionSettingId('enableFindReferencesButton'))) setReferenceButtonVisibility()
     })
 }

@@ -1,6 +1,5 @@
 import * as vscode from 'vscode'
 import { pascalCase, camelCase } from 'change-case'
-import { getExtensionCommandId, getExtensionSetting, getExtensionSettingId } from 'vscode-framework'
 import { documentsImportsCache } from './componentsLinks'
 import { getDefaultExportOutline, interpolationPropRegex } from './util'
 
@@ -48,15 +47,5 @@ export const registerGotoDefinition = () => {
             // const previewRange = new vscode.Range(startPos.with(1), startPos.with(6));
             return [{ range, targetRange: range, uri, targetUri: uri }]
         },
-    })
-    const setReferenceButtonVisibility = () => {
-        const isMenuButtonEnabled = getExtensionSetting('enableFindReferencesButton')
-        void vscode.commands.executeCommand('setContext', getExtensionCommandId('findComponentReferences'), isMenuButtonEnabled)
-    }
-
-    setReferenceButtonVisibility()
-
-    vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
-        if (affectsConfiguration(getExtensionSettingId('enableFindReferencesButton'))) setReferenceButtonVisibility()
     })
 }
