@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import escapeStringRegexp from 'escape-string-regexp'
-import { getExtensionSetting, registerExtensionCommand } from 'vscode-framework'
+import { getExtensionSetting, getExtensionSettingId, registerExtensionCommand } from 'vscode-framework'
 import { paramCase as kebabCase } from 'change-case'
 import { getDefaultExportOutline } from './util'
 
@@ -69,4 +69,14 @@ export const registerFindReferences = () => {
         activeEditor.selections = [new vscode.Selection(range.end, range.end)]
         await vscode.commands.executeCommand('editor.action.referenceSearch.trigger')
     })
+    const setReferenceButtonVisibility = () => {
+        const isMenuButtonEnabled = getExtensionSetting('enableFindReferencesButton')
+        void vscode.commands.executeCommand('setContext', 'veturExtended.enableFindReferencesButton', isMenuButtonEnabled)
+    }
+
+    vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
+        if (affectsConfiguration(getExtensionSettingId('enableFindReferencesButton'))) setReferenceButtonVisibility()
+    })
+
+    setReferenceButtonVisibility()
 }
