@@ -5,7 +5,7 @@ specifiers:
   '@types/vscode': ^1.65.0
   '@zardoy/tsconfig': ^1.4.0
   '@zardoy/utils': ^0.0.4
-  '@zardoy/vscode-utils': ^0.0.14
+  '@zardoy/vscode-utils': ^0.0.15
   change-case: ^4.1.2
   escape-string-regexp: ^5.0.0
   eslint: ^8.10.0
@@ -21,7 +21,7 @@ specifiers:
 
 dependencies:
   '@zardoy/utils': 0.0.4
-  '@zardoy/vscode-utils': 0.0.14_62wr6wzsquwzoon3ch76oxy76q
+  '@zardoy/vscode-utils': 0.0.15_62wr6wzsquwzoon3ch76oxy76q
   change-case: 4.1.2
   escape-string-regexp: 5.0.0
   modify-json-file: 1.2.2
@@ -613,8 +613,8 @@ packages:
       type-fest: 2.12.0
     dev: false
 
-  /@zardoy/vscode-utils/0.0.14_62wr6wzsquwzoon3ch76oxy76q:
-    resolution: {integrity: sha512-bSsUm+c7UyZJ1lx9w+fpizvUumZiPqgKAAhm6NQyqrp5f/jyOE4jTQpjPNhyobjQkFT+Xn9tw4cRcdkZVQ7yUA==}
+  /@zardoy/vscode-utils/0.0.15_62wr6wzsquwzoon3ch76oxy76q:
+    resolution: {integrity: sha512-4efnm2Anv2p7DiBCb+uz7mijMSUuBf9xdzI2lEVkwpGrxy1qZC4zmYIrLTMFy9cceu0h5VPvF0vktXBTeQ/pxQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       '@types/vscode': ^1.65.0
