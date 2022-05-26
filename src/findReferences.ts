@@ -28,7 +28,7 @@ export const registerFindReferences = () => {
                         let inTemplate = false
                         for (let [lineIndex, line] of contents.split('\n').entries()) {
                             // win \n\r
-                            line = line.trim()
+                            line = line.trimEnd()
                             if (line === '<template>') {
                                 inTemplate = true
                                 continue
@@ -38,7 +38,7 @@ export const registerFindReferences = () => {
                             if (!inTemplate) continue
                             // TODO! use iterator
                             const matches = line.matchAll(
-                                new RegExp(`<(${escapeStringRegexp(componentName)}|${escapeStringRegexp(kebabCase(componentName))})`, 'g'),
+                                new RegExp(`<(${escapeStringRegexp(componentName)}|${escapeStringRegexp(kebabCase(componentName))})\\b`, 'g'),
                             )
                             for (const match of matches) {
                                 if (match.index === undefined) continue
