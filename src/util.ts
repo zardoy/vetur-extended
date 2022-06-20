@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 import { getNormalizedVueOutline } from '@zardoy/vscode-utils/build/vue'
 
-export const interpolationPropRegex = /(?::|@|v-)([-\d\w])+="([^"]*)$/
+export const interpolationPropRegex = /(?::|@|v-)([-\d\w.])+="([^"]*)$/
 
 export const getDefaultExportOutline = async (documentUri: vscode.Uri) => {
     const outline = await getNormalizedVueOutline(documentUri)
