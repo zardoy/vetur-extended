@@ -38,7 +38,7 @@ export const registerFindReferences = () => {
                             if (!inTemplate) continue
                             // TODO! use iterator
                             const matches = line.matchAll(
-                                new RegExp(`<(${escapeStringRegexp(componentName)}|${escapeStringRegexp(kebabCase(componentName))})\\b`, 'g'),
+                                new RegExp(`<(${escapeStringRegexp(componentName)}|${escapeStringRegexp(kebabCase(componentName))})[ />]`, 'g'),
                             )
                             for (const match of matches) {
                                 if (match.index === undefined) continue
