@@ -6,6 +6,7 @@ import { registerGotoDefinition } from './gotoDefinition'
 import { registerHover } from './hover'
 // import { registerLinksProvider } from './links'
 import { registerTemplateCompletion } from './templateCompletion'
+import virtualScript from './virtualScript'
 
 export const activate = () => {
     registerFindReferences()
@@ -15,5 +16,6 @@ export const activate = () => {
     registerGenerateJsconfigAliases()
     registerComponentsLinks()
     registerPrintWebpackJsconfigAliases()
+    virtualScript()
     // registerLinksProvider()
 }
