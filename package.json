@@ -29,6 +29,10 @@
             {
                 "command": "printWebpackJsconfigAliases",
                 "title": "Print Webpack Jsconfig Aliases"
+            },
+            {
+                "command": "copyStylesWithClasesFromTemplate",
+                "title": "Copy Styles with Clases From Template"
             }
         ],
         "menus": {

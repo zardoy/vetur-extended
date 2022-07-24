@@ -1,3 +1,4 @@
+import { registerCssClasesFromTemplate } from './commands/cssClasesFromTemplate'
 import { registerGenerateJsconfigAliases } from './commands/generateJsconfigAliases'
 import { registerPrintWebpackJsconfigAliases } from './commands/printWebpackJsconfigAliases'
 import { registerComponentsLinks } from './componentsLinks'
@@ -15,5 +16,6 @@ export const activate = () => {
     registerGenerateJsconfigAliases()
     registerComponentsLinks()
     registerPrintWebpackJsconfigAliases()
+    registerCssClasesFromTemplate()
     // registerLinksProvider()
 }
