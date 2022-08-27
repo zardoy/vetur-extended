@@ -24,7 +24,6 @@ export default () => {
                         // find vuexMapper
                         name === '<unknown>' && document.getText(range).startsWith(`...${type}`),
                 )?.range.end
-                // const pos =
                 return [type, [pos, containingOutline]] as const
             }),
         )
