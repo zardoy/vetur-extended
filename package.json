@@ -33,6 +33,10 @@
             {
                 "command": "copyStylesWithClasesFromTemplate",
                 "title": "Copy Styles with Clases From Template"
+            },
+            {
+                "command": "focusVuexMapper",
+                "title": "Focus Vuex Mapper"
             }
         ],
         "menus": {
