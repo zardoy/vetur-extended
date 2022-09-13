@@ -21,7 +21,7 @@ export type Configuration = {
      */
     enableFindReferencesButton: boolean
     /**
-     *  Type space after / in <div /> to expand the tag. Doesn't support React for now
+     *  Type space after / in <div /> to expand the tag
      *  @default true
      */
     enableAutoExpandTag: boolean
