@@ -23,16 +23,13 @@ const getTextSafe = (
     return document.getText(new vscode.Range(positionBefore, positionAfter))
 }
 
-const outlineBasedLangs = ['vue', 'svelte']
-const allSupportedLangs = new Set([...outlineBasedLangs, 'typescriptreact', 'javascriptreact'])
-
 export const registerExpandTag = () => {
     registerExtensionCommand('expandTag', async () => {
         const activeEditor = getActiveRegularEditor()
         if (!activeEditor) return
         const position = activeEditor.selection.end
         const { document } = activeEditor
-        if (!outlineBasedLangs.includes(document.languageId)) return
+        if (document.languageId !== 'vue') return
         const outline: vscode.DocumentSymbol[] = await vscode.commands.executeCommand('vscode.executeDocumentSymbolProvider', document.uri)
         const outlineItem = findCurrentOutlineItem(outline, position)
         if (!outlineItem) return
@@ -52,7 +49,7 @@ export const registerExpandTag = () => {
 
     vscode.workspace.onDidChangeTextDocument(async ({ document, contentChanges }) => {
         const activeEditor = getActiveRegularEditor()
-        if (document.uri !== activeEditor?.document.uri || !allSupportedLangs.has(activeEditor.document.languageId)) return
+        if (document.uri !== activeEditor?.document.uri || activeEditor.document.languageId !== 'vue') return
         if (
             !equals(
                 contentChanges.map(({ text }) => text),
