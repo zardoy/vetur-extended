@@ -1,6 +1,7 @@
 import { registerCssClasesFromTemplate } from './commands/cssClasesFromTemplate'
 import { registerGenerateJsconfigAliases } from './commands/generateJsconfigAliases'
 import { registerPrintWebpackJsconfigAliases } from './commands/printWebpackJsconfigAliases'
+import { registerExpandTag } from './commands/expandTag'
 import { registerComponentsLinks } from './componentsLinks'
 import { registerFindReferences } from './findReferences'
 import { registerGotoDefinition } from './gotoDefinition'
@@ -16,6 +17,7 @@ export const activate = () => {
     registerGenerateJsconfigAliases()
     registerComponentsLinks()
     registerPrintWebpackJsconfigAliases()
+    registerExpandTag()
     registerCssClasesFromTemplate()
     focusVuexMapper()
 }
