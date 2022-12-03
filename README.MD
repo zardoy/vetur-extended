@@ -8,3 +8,8 @@ It was mainly created for Vue@2, where just `export default` is used within comp
 
 Vetur is abandoned. It just doesn't work in some components.
 Volar doesn't work without `defineComponent` and some switches that must be defined in js/tsconfig locally.
+
+### My Other Extensions
+
+- [Better Snippets](https://marketplace.visualstudio.com/items?itemName=zardoy.better-snippets) - Create snippets of any complexity for Vue!
+- [Move Statement](https://marketplace.visualstudio.com/items?itemName=zardoy.move-statement) - Move any statements in Vue files (such as elements in `template` / `script`)!

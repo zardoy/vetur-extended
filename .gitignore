@@ -13,6 +13,7 @@ coverage
 *.lcov
 .nyc_output
 src/generated.ts
+src/configurationTypeCache.jsonc
 
 logs
 *.log
