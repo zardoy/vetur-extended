@@ -20,7 +20,7 @@ export const registerComponentsLinks = () => {
 
             const text = document.getText()
             const matches: RegExpMatchArray[] = [
-                ...text.matchAll(/(import (.+) from )(['"].+['"])/g),
+                ...text.matchAll(/(import (.+)\s+from )(['"].+['"])/g),
                 ...text.matchAll(/(\s*(?:let|const)\s*(\w+).*\((?:\/\*.*\*\/\s*)?)(['"].+['"])\)/g),
             ]
 
