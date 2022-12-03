@@ -14,13 +14,16 @@ export const registerComponentsLinks = () => {
 
     vscode.languages.registerDocumentLinkProvider('vue', {
         async provideDocumentLinks(document) {
-            const activeEditor = vscode.window.activeTextEditor!
             if (!getExtensionSetting('enableLinks')) return
             // eslint-disable-next-line unicorn/no-await-expression-member
             const webpackAliases = getExtensionSetting('enableWebpackAliases') ? (await readWebpackAliases())?.aliases ?? [] : []
 
             const text = document.getText()
-            const matches: RegExpMatchArray[] = [...text.matchAll(/(import (.+) from )(['"].+['"])/g)]
+            const matches: RegExpMatchArray[] = [
+                ...text.matchAll(/(import (.+) from )(['"].+['"])/g),
+                ...text.matchAll(/(\s*(?:let|const)\s*(\w+).*\((?:\/\*.*\*\/\s*)?)(['"].+['"])\)/g),
+            ]
+
             const links: vscode.DocumentLink[] = []
             for (const match of matches) {
                 const importRaw = match[3]!
@@ -31,7 +34,6 @@ export const registerComponentsLinks = () => {
 
                 for (const { name, uri } of webpackAliases)
                     if (importPath === name || importPath.startsWith(`${name}/`))
-                        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                         aliasedUri = vscode.Uri.joinPath(uri, importPath.slice(name.length + 1))
 
                 if (!aliasedUri && !['./', '../'].some(predicate => importPath.startsWith(predicate))) continue
