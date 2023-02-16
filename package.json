@@ -41,6 +41,10 @@
             {
                 "command": "expandTag",
                 "title": "Expand Tag"
+            },
+            {
+                "command": "copyComponentName",
+                "title": "Copy Component Name"
             }
         ],
         "menus": {
