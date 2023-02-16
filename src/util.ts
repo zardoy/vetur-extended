@@ -22,3 +22,16 @@ export const getComponentNameOutline = async (documentUri: vscode.Uri) => {
 
     return componentNameOutline
 }
+
+export const getComputedOutline = async (documentUri: vscode.Uri) => {
+    const outline = await getNormalizedVueOutline(documentUri)
+
+    const computedOutline = outline
+        ?.find(({ name }) => name === 'script')
+        ?.children.find(({ name }) => name === 'default')
+        ?.children.find(({ name }) => name === 'computed')
+
+    if (!computedOutline) console.warn("Can' get computed outline")
+
+    return computedOutline
+}

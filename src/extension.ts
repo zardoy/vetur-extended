@@ -7,6 +7,7 @@ import { registerFindReferences } from './findReferences'
 import { registerGotoDefinition } from './gotoDefinition'
 import { registerHover } from './hover'
 import { registerTemplateCompletion } from './templateCompletion'
+import { registerPiniaCodeactions } from './piniaCodeActions'
 import focusVuexMapper from './commands/focusVuexMapper'
 import { registerCopyComponentName } from './commands/copyComponentName'
 
@@ -22,4 +23,5 @@ export const activate = () => {
     registerCssClasesFromTemplate()
     focusVuexMapper()
     registerCopyComponentName()
+    registerPiniaCodeactions()
 }

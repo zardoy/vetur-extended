@@ -55,7 +55,18 @@
                     "command": "findComponentReferences"
                 }
             ]
-        }
+        },
+        "codeActions": [
+            {
+                "actions": {
+                    "title": "Register pinia store in computed",
+                    "kind": "QuickFix"
+                },
+                "languages": [
+                    "vue"
+                ]
+            }
+        ]
     },
     "activationEvents": [
         "onLanguage:vue"
