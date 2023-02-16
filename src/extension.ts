@@ -8,6 +8,7 @@ import { registerGotoDefinition } from './gotoDefinition'
 import { registerHover } from './hover'
 import { registerTemplateCompletion } from './templateCompletion'
 import focusVuexMapper from './commands/focusVuexMapper'
+import { registerCopyComponentName } from './commands/copyComponentName'
 
 export const activate = () => {
     registerFindReferences()
@@ -20,4 +21,5 @@ export const activate = () => {
     registerExpandTag()
     registerCssClasesFromTemplate()
     focusVuexMapper()
+    registerCopyComponentName()
 }

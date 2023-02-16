@@ -25,4 +25,9 @@ export type Configuration = {
      *  @default true
      */
     enableAutoExpandTag: boolean
+    /**
+     *  Copied component name case
+     *  @default "preserve"
+     */
+    copyComponentNameCase: 'preserve' | 'camelCase'
 }
