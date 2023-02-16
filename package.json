@@ -55,18 +55,7 @@
                     "command": "findComponentReferences"
                 }
             ]
-        },
-        "codeActions": [
-            {
-                "actions": {
-                    "title": "Register pinia store in computed",
-                    "kind": "QuickFix"
-                },
-                "languages": [
-                    "vue"
-                ]
-            }
-        ]
+        }
     },
     "activationEvents": [
         "onLanguage:vue"
@@ -77,7 +66,7 @@
     },
     "devDependencies": {
         "@types/node": "^17.0.21",
-        "@types/vscode": "^1.65.0",
+        "@types/vscode": "^1.72.0",
         "@zardoy/tsconfig": "^1.4.0",
         "eslint": "^8.10.0",
         "eslint-config-zardoy": "^0.2.10",
