@@ -15,9 +15,6 @@ export const registerPiniaCodeactions = () => {
 
                 const { range: computedRange } = computedOutline
 
-                console.log('document', document.getText(computedRange))
-                console.log('range.isSingleLine', computedRange.isSingleLine)
-
                 const computedStoreTemplate = `\t${piniaStoreMatch[2]!}() {\n\t\t\treturn defineStore('${piniaStoreMatch[2]!}', ${piniaStoreMatch[2]!})()\n\t\t},\n\t`
 
                 const workspaceEdit = new vscode.WorkspaceEdit()
