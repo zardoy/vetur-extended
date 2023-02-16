@@ -1,13 +1,17 @@
 import * as vscode from 'vscode'
+import { getExtensionSetting } from 'vscode-framework'
 import { getComputedOutline } from './util'
 
 export const registerPiniaCodeactions = () => {
     vscode.languages.registerCodeActionsProvider('vue', {
         async provideCodeActions(document, range, context, token) {
+            if (!getExtensionSetting('enablePiniaStoreRegistrationCodeAction')) return
+
             const pos = range.start
             const codeActions = [] as vscode.CodeAction[]
+            const piniaStorePathRegex = getExtensionSetting('piniaStorePathRegex')
 
-            const piniaStoreMatch = new RegExp(/(import (.+)\s+from )(['"].*pinia.*['"].?)/).exec(document.lineAt(pos.line).text)
+            const piniaStoreMatch = new RegExp(`(import (.+)\\s+from )(['"]${piniaStorePathRegex}['"].?)`).exec(document.lineAt(pos.line).text)
 
             if (piniaStoreMatch) {
                 const computedOutline = await getComputedOutline(document.uri)

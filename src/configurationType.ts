@@ -26,6 +26,16 @@ export type Configuration = {
      */
     enableAutoExpandTag: boolean
     /**
+     *  Whether to enable code action for quick store registration in computed field
+     *  @default true
+     */
+    enablePiniaStoreRegistrationCodeAction: boolean
+    /**
+     *
+     *  @default ".*?\/stores/.*"
+     */
+    piniaStorePathRegex: string
+    /**
      *  Copied component name case
      *  @default "preserve"
      */
