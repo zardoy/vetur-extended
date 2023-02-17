@@ -32,7 +32,7 @@ export type Configuration = {
     enablePiniaStoreRegistrationCodeAction: boolean
     /**
      *
-     *  @default ".*?\/stores/.*"
+     *  @default ".*?stores\\/.*"
      */
     piniaStorePathRegex: string
     /**
@@ -40,4 +40,9 @@ export type Configuration = {
      *  @default "preserve"
      */
     copyComponentNameCase: 'preserve' | 'camelCase'
+    /**
+     *
+     *  @default null
+     */
+    piniaStoreComputedNameTransform: null | { pattern: RegExp | string; replacement: string }
 }

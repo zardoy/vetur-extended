@@ -16,10 +16,15 @@ export const registerPiniaCodeactions = () => {
             if (piniaStoreMatch) {
                 const computedOutline = await getComputedOutline(document.uri)
                 if (!computedOutline) return
-
+                // const str = `\${TM_CURRENT_LINE/import (.+)\\s+from ['"]${piniaStorePathRegex}['"].?/$1/}`
                 const { range: computedRange } = computedOutline
-                const snippetStirng = // eslint-disable-next-line no-template-curly-in-string
-                    "\t${TM_CURRENT_LINE/import (.+)\\s+from ['\"].*?pinia.*?['\"].?/$1/}() {\n\t\treturn defineStore('$2', $3)()\n\t},$0\n"
+
+                const customNameTransform = getExtensionSetting('piniaStoreComputedNameTransform')
+                const computedName = customNameTransform
+                    ? piniaStoreMatch[2]!.replace(new RegExp(customNameTransform?.pattern), customNameTransform?.replacement)
+                    : piniaStoreMatch[2]!
+
+                const snippetStirng = `\t\${1:${computedName}}() {\n\t\treturn defineStore('\${2:${piniaStoreMatch[2]!}}', \${3:${piniaStoreMatch[2]!}})()\n\t},$0\n`
 
                 const workspaceEdit = new vscode.WorkspaceEdit()
                 if (computedRange.isSingleLine)
