@@ -26,22 +26,23 @@ export type Configuration = {
      */
     enableAutoExpandTag: boolean
     /**
-     *  Whether to enable code action for quick store registration in computed field
-     *  @default true
-     */
-    enablePiniaStoreRegistrationCodeAction: boolean
-    /**
-     *
-     *  @default ".*?stores\\/.*"
-     */
-    piniaStorePathRegex: string
-    /**
      *  Copied component name case
      *  @default "preserve"
      */
     copyComponentNameCase: 'preserve' | 'camelCase'
     /**
-     *
+     *  Whether to enable code action for quick store registration in computed field
+     *  @default true
+     */
+    enablePiniaStoreRegistrationCodeAction: boolean
+    /**
+     *  Pinia stores import path
+     *  @default ".*?stores\\/.*"
+     */
+    piniaStorePathRegex: string
+    /**
+     *  (advanced): Invokes `String.prototype.replace` on the imported store name
+     *  Call signature: `<importedStoreName>.replace(new Regexp(pattern), replacement)`
      *  @default null
      */
     piniaStoreComputedNameTransform: null | { pattern: RegExp | string; replacement: string }
