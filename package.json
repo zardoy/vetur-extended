@@ -45,6 +45,10 @@
             {
                 "command": "copyComponentName",
                 "title": "Copy Component Name"
+            },
+            {
+                "command": "parseProps",
+                "title": "parseProps"
             }
         ],
         "menus": {

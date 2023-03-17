@@ -1,3 +1,4 @@
+import { parseProps } from './commands/parseProps'
 import { registerCssClasesFromTemplate } from './commands/cssClasesFromTemplate'
 import { registerGenerateJsconfigAliases } from './commands/generateJsconfigAliases'
 import { registerPrintWebpackJsconfigAliases } from './commands/printWebpackJsconfigAliases'
@@ -22,4 +23,5 @@ export const activate = () => {
     registerCssClasesFromTemplate()
     focusVuexMapper()
     registerCopyComponentName()
+    parseProps()
 }
