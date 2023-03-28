@@ -1,15 +1,14 @@
 import * as vscode from 'vscode'
 import { registerExtensionCommand } from 'vscode-framework'
 import * as html from 'vscode-html-languageservice'
-import { getNormalizedVueOutline } from '@zardoy/vscode-utils/build/vue'
+import { getTemplateOutline } from '../util'
 
 export const registerCssClasesFromTemplate = () => {
     registerExtensionCommand('copyStylesWithClasesFromTemplate', async () => {
         const activeEditor = vscode.window.activeTextEditor
         if (!activeEditor || activeEditor.viewColumn === undefined) return
 
-        const outline = await getNormalizedVueOutline(activeEditor.document.uri)
-        const templateOutline = outline?.find(item => item.name === 'template')
+        const templateOutline = await getTemplateOutline(activeEditor.document.uri)
         if (!templateOutline) return
         const templateText = activeEditor.document.getText(templateOutline.range)
         const insertText = parseHTMLContent(templateText)

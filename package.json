@@ -45,6 +45,10 @@
             {
                 "command": "copyComponentName",
                 "title": "Copy Component Name"
+            },
+            {
+                "command": "createCssClass",
+                "title": "Create CSS Class"
             }
         ],
         "menus": {
