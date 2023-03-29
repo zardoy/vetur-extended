@@ -35,3 +35,21 @@ export const getComputedOutline = async (documentUri: vscode.Uri) => {
 
     return computedOutline
 }
+export const getTemplateOutline = async (documentUri: vscode.Uri) => {
+    const outline = await getNormalizedVueOutline(documentUri)
+    const templateOutline = outline?.find(({ name }) => name === 'template')
+
+    if (!templateOutline) console.warn("Can' get template outline")
+
+    return templateOutline
+}
+
+export const getStyleOutline = async (documentUri: vscode.Uri) => {
+    const outline = await getNormalizedVueOutline(documentUri)
+
+    const templateOutline = outline?.find(({ name }) => name === 'style' || name === 'style scoped')
+
+    if (!templateOutline) console.warn("Can' get style outline")
+
+    return templateOutline
+}
