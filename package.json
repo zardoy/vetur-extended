@@ -69,12 +69,12 @@
         "lint": "eslint src/**"
     },
     "devDependencies": {
-        "@types/node": "^17.0.21",
-        "@types/vscode": "^1.72.0",
-        "@zardoy/tsconfig": "^1.4.0",
-        "eslint": "^8.10.0",
-        "eslint-config-zardoy": "^0.2.10",
-        "typescript": "^4.6.2"
+        "@types/node": "^17.0.45",
+        "@types/vscode": "^1.76.0",
+        "@zardoy/tsconfig": "^1.5.0",
+        "eslint": "^8.37.0",
+        "eslint-config-zardoy": "^0.2.16",
+        "typescript": "^4.9.5"
     },
     "dependencies": {
         "@zardoy/utils": "^0.0.9",
@@ -82,13 +82,13 @@
         "change-case": "^4.1.2",
         "escape-string-regexp": "^5.0.0",
         "modify-json-file": "^1.2.2",
-        "postcss": "^8.4.8",
-        "postcss-selector-parser": "^6.0.9",
-        "rambda": "^7.2.1",
-        "type-fest": "^2.12.0",
+        "postcss": "^8.4.21",
+        "postcss-selector-parser": "^6.0.11",
+        "rambda": "^7.5.0",
+        "type-fest": "^2.19.0",
         "vscode-framework": "^0.0.18",
-        "vscode-html-languageservice": "^4.2.2",
-        "vscode-uri": "^3.0.3"
+        "vscode-html-languageservice": "^4.2.5",
+        "vscode-uri": "^3.0.7"
     },
     "prettier": {
         "semi": false,
