@@ -2,6 +2,19 @@ import * as vscode from 'vscode'
 import { registerExtensionCommand } from 'vscode-framework'
 import { getStyleOutline } from '../util'
 
+const skipAtRules = (styleRange: vscode.Range, document: vscode.TextDocument) => {
+    const rangeEnd = styleRange.end
+    let currentPos = styleRange.start.translate(1) // skip <style> tag
+
+    while (currentPos <= rangeEnd) {
+        if (/\s*@.*/.test(document.lineAt(currentPos.line).text)) {
+            currentPos = currentPos.translate(1)
+            continue
+        }
+        return currentPos
+    }
+    return currentPos
+}
 export const registerCreateCssClass = () => {
     registerExtensionCommand('createCssClass', async () => {
         const activeEditor = vscode.window.activeTextEditor
@@ -18,13 +31,13 @@ export const registerCreateCssClass = () => {
         if (!classMatch) return
 
         const styleOutline = await getStyleOutline(document.uri)
-        if (!styleOutline) return
+        if (!styleOutline || styleOutline.range.isSingleLine) return
 
         const styleRange = styleOutline.range
-        const styleRangePos = document.positionAt(document.offsetAt(styleRange.start))
         const normalizedClassName = `.${classMatch[0]} {\n\t\n}\n`
 
-        const classInsertPosition = styleRangePos.translate(1)
+        const classInsertPosition = skipAtRules(styleRange, document)
+
         await activeEditor.edit(editBuilder => {
             // TODO: find better place to insert generated class (insert elements after block etc)
             editBuilder.insert(classInsertPosition, normalizedClassName)
@@ -35,14 +48,7 @@ export const registerCreateCssClass = () => {
 
         if (!cssClassLocation) return
 
-        await vscode.commands.executeCommand(
-            'editor.action.peekLocations',
-            document.uri,
-            cssClassLocation ? position : locations[0]?.range.start ?? position,
-            [cssClassLocation],
-            'peek',
-            'No references',
-        )
+        await vscode.commands.executeCommand('editor.action.peekLocations', document.uri, position, [cssClassLocation], 'peek', 'No references')
         // TODO: set cursor positon inside the created empty rule if possible
         await vscode.commands.executeCommand('togglePeekWidgetFocus')
         // activeEditor.selection = new vscode.Selection(cssClassLocation.range.start.translate(1), cssClassLocation.range.start.translate(1))
