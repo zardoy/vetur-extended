@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { getNormalizedVueOutline } from '@zardoy/vscode-utils/build/vue'
+import { getNormalizedVueOutline, getDefaultVueExportOutline } from '@zardoy/vscode-utils/build/vue'
 
 export const interpolationPropRegex = /(?::|@|v-)([-\d\w.])+="([^"]*)$/
 
@@ -24,12 +24,12 @@ export const getComponentNameOutline = async (documentUri: vscode.Uri) => {
 }
 
 export const getComputedOutline = async (documentUri: vscode.Uri) => {
-    const outline = await getNormalizedVueOutline(documentUri)
+    const outline = (await getNormalizedVueOutline(documentUri)) ?? (await getDefaultVueExportOutline(documentUri))
 
-    const computedOutline = outline
-        ?.find(({ name }) => name === 'script')
-        ?.children.find(({ name }) => name === 'default')
-        ?.children.find(({ name }) => name === 'computed')
+    const currentOutline = outline?.find(({ name }) => name === 'script')?.children ?? outline
+    const defaultOutline = currentOutline?.find(({ name }) => name === 'default').children
+
+    const computedOutline = defaultOutline?.find(({ name }) => name === 'computed')
 
     if (!computedOutline) console.warn("Can' get computed outline")
 
