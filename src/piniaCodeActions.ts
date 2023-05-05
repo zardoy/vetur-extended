@@ -3,7 +3,7 @@ import { getExtensionSetting } from 'vscode-framework'
 import { getComputedOutline } from './util'
 
 export const registerPiniaCodeactions = () => {
-    vscode.languages.registerCodeActionsProvider('vue', {
+    vscode.languages.registerCodeActionsProvider(['vue', 'javascript', 'typescript'], {
         async provideCodeActions(document, range, context, token) {
             if (!getExtensionSetting('enablePiniaStoreRegistrationCodeAction')) return
 
