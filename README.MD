@@ -12,4 +12,5 @@ Volar doesn't work without `defineComponent` and some switches that must be defi
 ### My Other Extensions
 
 - [Better Snippets](https://marketplace.visualstudio.com/items?itemName=zardoy.better-snippets) - Create snippets of any complexity for Vue!
-- [Move Statement](https://marketplace.visualstudio.com/items?itemName=zardoy.move-statement) - Move any statements in Vue files (such as elements in `template` / `script`)!
+- [TypeScript Essential Plugins](https://marketplace.visualstudio.com/items?itemName=zardoy.ts-essential-plugins) - Includes [optional](https://github.com/zardoy/typescript-vscode-plugins#vue-support) support for Vue + Volar (better completions, go to references and so on!)
+- [Move Statement](https://marketplace.visualstudio.com/items?itemName=zardoy.move-statement) - Move any statements in Vue files (such as elements in `template` / `style`)!
