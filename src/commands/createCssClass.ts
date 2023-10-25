@@ -46,10 +46,13 @@ export const registerCreateCssClass = () => {
 
         const cssClassLocation = locations.find(location => location.range.contains(classInsertPosition))
 
-        if (!cssClassLocation) return
+        if (!cssClassLocation) {
+            vscode.window.showErrorMessage('No class references found')
+            return
+        }
 
         await vscode.commands.executeCommand('editor.action.peekLocations', document.uri, position, [cssClassLocation], 'peek', 'No references')
-        // TODO: set cursor positon inside the created empty rule if possible
+        // TODO: set cursor position inside the created empty rule if possible
         await vscode.commands.executeCommand('togglePeekWidgetFocus')
         // activeEditor.selection = new vscode.Selection(cssClassLocation.range.start.translate(1), cssClassLocation.range.start.translate(1))
     })
