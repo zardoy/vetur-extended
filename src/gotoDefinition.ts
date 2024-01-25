@@ -2,7 +2,6 @@ import * as vscode from 'vscode'
 import { pascalCase, camelCase } from 'change-case'
 import { documentsImportsCache } from './componentsLinks'
 import { getDefaultExportOutline, interpolationPropRegex, isScriptSetup } from './util'
-import { getNormalizedVueOutline } from '@zardoy/vscode-utils/build/vue'
 
 export const registerGotoDefinition = () => {
     // attribute definition
@@ -39,6 +38,7 @@ export const registerGotoDefinition = () => {
                 console.warn('no importsCache!')
                 return
             }
+
             // Volar with configured aliases in tsconfig already provides correct definition
             if (await isScriptSetup(document.uri)) return
 
