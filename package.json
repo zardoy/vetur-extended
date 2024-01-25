@@ -74,6 +74,7 @@
         "@zardoy/tsconfig": "^1.5.0",
         "eslint": "^8.37.0",
         "eslint-config-zardoy": "^0.2.16",
+        "prettier": "^3.2.4",
         "typescript": "^4.9.5"
     },
     "dependencies": {
