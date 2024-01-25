@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 import { pascalCase, camelCase } from 'change-case'
 import { documentsImportsCache } from './componentsLinks'
-import { getDefaultExportOutline, interpolationPropRegex } from './util'
+import { getDefaultExportOutline, interpolationPropRegex, isScriptSetup } from './util'
 
 export const registerGotoDefinition = () => {
     // attribute definition
@@ -28,7 +28,7 @@ export const registerGotoDefinition = () => {
     })
     // component definition
     vscode.languages.registerDefinitionProvider('vue', {
-        provideDefinition(document, position, token) {
+        async provideDefinition(document, position, token) {
             const componentRange = document.getWordRangeAtPosition(position, /<\/?([-\d\w])+/) // (?=(\s|\/?>))
             if (!componentRange) return
             const rangeText = document.getText(componentRange)
@@ -39,9 +39,12 @@ export const registerGotoDefinition = () => {
                 return
             }
 
-            // console.log('lookup', componentName, importsCache)
+            // Volar with configured aliases in tsconfig already provides correct definition
+            if (await isScriptSetup(document.uri)) return
+
             const uri = importsCache.get(componentName) ?? importsCache.get(pascalCase(componentName)) ?? importsCache.get(camelCase(componentName))
             if (!uri) return
+
             const startPos = new vscode.Position(0, 0)
             const range = new vscode.Range(startPos, startPos.with(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY))
             // const previewRange = new vscode.Range(startPos.with(1), startPos.with(6));

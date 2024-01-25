@@ -11,6 +11,12 @@ export const getDefaultExportOutline = async (documentUri: vscode.Uri) => {
     return defaultExport
 }
 
+export const isScriptSetup = async (documentUri: vscode.Uri) => {
+    const outline = await getNormalizedVueOutline(documentUri)
+
+    return !!outline?.find(({ name }) => name === 'script setup')
+}
+
 export const getComponentNameOutline = async (documentUri: vscode.Uri) => {
     const outline = await getNormalizedVueOutline(documentUri)
     const componentNameOutline = outline
@@ -35,6 +41,7 @@ export const getComputedOutline = async (documentUri: vscode.Uri) => {
 
     return computedOutline
 }
+
 export const getTemplateOutline = async (documentUri: vscode.Uri) => {
     const outline = await getNormalizedVueOutline(documentUri)
     const templateOutline = outline?.find(({ name }) => name === 'template')
