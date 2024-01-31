@@ -11,6 +11,12 @@ export type Configuration = {
      * */
     enableLinks: boolean
     /**
+     * Whether to enable definitions for template attributes
+     * May lead to definition duplicates with Volar configured
+     * @default true,
+     * */
+    enableTemplateAttributeDefinitions: boolean
+    /**
      * (component definitions) Try to resolve imports using aliases from root webpack config
      * @default true
      * */
