@@ -2,11 +2,14 @@ import * as vscode from 'vscode'
 import { pascalCase, camelCase } from 'change-case'
 import { documentsImportsCache } from './componentsLinks'
 import { getDefaultExportOutline, interpolationPropRegex, isScriptSetup } from './util'
+import { getExtensionSetting } from 'vscode-framework'
 
 export const registerGotoDefinition = () => {
     // attribute definition
     vscode.languages.registerDefinitionProvider('vue', {
-        async provideDefinition(document, position, token) {
+        async provideDefinition(document, position) {
+            if (!getExtensionSetting('enableTemplateAttributeDefinitions')) return
+
             const lineText = document.lineAt(position).text
             const match = interpolationPropRegex.exec(lineText.slice(0, position.character))
             if (!match) return
@@ -38,7 +41,6 @@ export const registerGotoDefinition = () => {
                 console.warn('no importsCache!')
                 return
             }
-
             // Volar with configured aliases in tsconfig already provides correct definition
             if (await isScriptSetup(document.uri)) return
 
